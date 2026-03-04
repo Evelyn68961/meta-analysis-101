@@ -111,17 +111,17 @@ Each question object:
 
 **WW-01**
 - Q: What is a meta-analysis?
-- Q_zh: 什麼是Meta分析？
+- Q_zh: 什麼是統合分析？
 - A: A study that collects new data from patients / 一項收集患者新數據的研究
 - B: ✅ A statistical method that combines results from multiple studies on the same topic / 一種統計方法，將同一主題的多項研究結果合併
 - C: A type of literature review that summarizes study findings in words only / 一種僅用文字總結研究結果的文獻綜述
 - D: A single large clinical trial with many participants / 一項有很多參與者的大型臨床試驗
 - Explanation: A meta-analysis uses statistical techniques to combine numerical results from multiple independent studies, producing a single overall estimate. Unlike a narrative review, it uses math — not just words — to synthesize evidence.
-- Explanation_zh: Meta分析使用統計技術將多項獨立研究的數值結果合併，產生一個總體估計值。與敘述性綜述不同，它使用數學——而不僅僅是文字——來綜合證據。
+- Explanation_zh: 統合分析使用統計技術將多項獨立研究的數值結果合併，產生一個總體估計值。與敘述性綜述不同，它使用數學——而不僅僅是文字——來綜合證據。
 
 **WW-02**
 - Q: Why would a researcher do a meta-analysis instead of just reading individual studies?
-- Q_zh: 為什麼研究者要做Meta分析，而不是只閱讀個別研究？
+- Q_zh: 為什麼研究者要做統合分析，而不是只閱讀個別研究？
 - A: It is faster than reading individual papers / 比閱讀個別論文更快
 - B: It allows the researcher to pick only supportive studies / 它允許研究者只選擇支持性的研究
 - C: ✅ Combining data increases statistical power and can reveal patterns that single studies might miss / 合併數據增加了統計效力，可以揭示單個研究可能遺漏的模式
@@ -131,39 +131,39 @@ Each question object:
 
 **WW-03**
 - Q: What is the difference between a systematic review and a meta-analysis?
-- Q_zh: 系統綜述和Meta分析有什麼區別？
+- Q_zh: 系統性綜論和統合分析有什麼區別？
 - A: They are exactly the same thing / 它們完全一樣
-- B: ✅ A systematic review searches and evaluates studies methodically; a meta-analysis adds the step of statistically combining results / 系統綜述有方法地搜索和評估研究；Meta分析增加了統計合併結果的步驟
-- C: A meta-analysis is always done before a systematic review / Meta分析總是在系統綜述之前進行
-- D: A systematic review only includes randomized controlled trials / 系統綜述只包括隨機對照試驗
+- B: ✅ A systematic review searches and evaluates studies methodically; a meta-analysis adds the step of statistically combining results / 系統性綜論有方法地搜索和評估研究；統合分析增加了統計合併結果的步驟
+- C: A meta-analysis is always done before a systematic review / 統合分析總是在系統性綜論之前進行
+- D: A systematic review only includes randomized controlled trials / 系統性綜論只包括隨機對照試驗
 - Explanation: A systematic review is the structured process of finding, screening, and appraising studies. A meta-analysis is the optional statistical pooling step within it. You can have a systematic review without a meta-analysis, but not the reverse.
-- Explanation_zh: 系統綜述是查找、篩選和評價研究的結構化過程。Meta分析是其中的可選統計匯總步驟。你可以有沒有Meta分析的系統綜述，但反過來不行。
+- Explanation_zh: 系統性綜論是查找、篩選和評價研究的結構化過程。統合分析是其中的可選統計匯總步驟。你可以有沒有統合分析的系統性綜論，但反過來不行。
 
 **WW-04**
 - Q: Which of the following is NOT a benefit of conducting a meta-analysis?
-- Q_zh: 以下哪項不是進行Meta分析的好處？
+- Q_zh: 以下哪項不是進行統合分析的好處？
 - A: It can settle conflicting results across studies / 它可以解決研究間矛盾的結果
 - B: It increases the overall sample size by pooling participants / 它通過匯集參與者增加了總體樣本量
 - C: ✅ It guarantees that the combined result is correct / 它保證合併結果是正確的
 - D: It can explore why results differ between studies / 它可以探索研究之間結果不同的原因
 - Explanation: A meta-analysis is powerful but does not guarantee truth. If included studies are biased, combining them can produce a more precise wrong answer — sometimes called "garbage in, garbage out."
-- Explanation_zh: Meta分析很強大，但不能保證真實性。如果納入的研究有偏差，合併它們可能產生更精確的錯誤答案——有時被稱為「垃圾進，垃圾出」。
+- Explanation_zh: 統合分析很強大，但不能保證真實性。如果納入的研究有偏差，合併它們可能產生更精確的錯誤答案——有時被稱為「垃圾進，垃圾出」。
 
 **WW-05**
 - Q: "I found 10 studies — 6 say the drug works, 4 say it doesn't, so it probably works." What is wrong with this reasoning?
 - Q_zh: 「我找到了10項研究——6項說藥物有效，4項說無效，所以它可能有效。」這個推理有什麼問題？
 - A: Nothing — majority rules is valid / 沒問題——多數決是有效的
 - B: The colleague should only count randomized trials / 同事應該只計算隨機試驗
-- C: ✅ Counting positive vs. negative studies ignores differences in study size, quality, and effect size — a meta-analysis weighs each study appropriately / 計算陽性與陰性研究忽略了研究規模、質量和效應量的差異——Meta分析會適當地給每項研究加權
+- C: ✅ Counting positive vs. negative studies ignores differences in study size, quality, and effect size — a meta-analysis weighs each study appropriately / 計算陽性與陰性研究忽略了研究規模、質量和效應量的差異——統合分析會適當地給每項研究加權
 - D: You need at least 20 studies to draw any conclusion / 你需要至少20項研究才能得出結論
 - Explanation: This "vote counting" approach treats all studies equally, but a large, well-designed trial with 5,000 participants should carry more weight than a small pilot study with 30. Meta-analysis uses statistical weighting to account for these differences.
-- Explanation_zh: 這種「計票」方法平等對待所有研究，但一項設計良好的5000名參與者的大型試驗應該比只有30名參與者的小型先導研究更有份量。Meta分析使用統計加權來考慮這些差異。
+- Explanation_zh: 這種「計票」方法平等對待所有研究，但一項設計良好的5000名參與者的大型試驗應該比只有30名參與者的小型先導研究更有份量。統合分析使用統計加權來考慮這些差異。
 
 ### Category 2: Data Extraction — 🔵 Data Egg / 數據蛋
 
 **DE-01**
 - Q: In a meta-analysis, what is an "effect size"?
-- Q_zh: 在Meta分析中，什麼是「效應量」？
+- Q_zh: 在統合分析中，什麼是「效應量」？
 - A: The number of participants in a study / 研究中的參與者數量
 - B: ✅ A standardized number that measures how large the difference or relationship is between groups / 一個標準化的數字，衡量組間差異或關係的大小
 - C: The p-value reported in the original study / 原始研究中報告的p值
@@ -179,7 +179,7 @@ Each question object:
 - C: Only the percentages (15% and 22%) / 只需要百分比（15%和22%）
 - D: Just the difference between the two groups (7%) / 只需要兩組之間的差異（7%）
 - Explanation: You need raw event counts and sample sizes for each group. This lets meta-analysis software calculate the effect size and its precision. Percentages alone lose information about sample size, which affects how much weight a study gets.
-- Explanation_zh: 你需要每組的原始事件計數和樣本量。這讓Meta分析軟體計算效應量及其精確度。僅有百分比會丟失關於樣本量的信息，而樣本量影響研究獲得的權重。
+- Explanation_zh: 你需要每組的原始事件計數和樣本量。這讓統合分析軟體計算效應量及其精確度。僅有百分比會丟失關於樣本量的信息，而樣本量影響研究獲得的權重。
 
 **DE-03**
 - Q: Why do guidelines recommend two people independently extract data from each study?
@@ -259,7 +259,7 @@ Each question object:
 - A: The treatment is harmful / 治療有害
 - B: ✅ You need to check the axis labels — "left" could favor treatment OR control depending on how the plot is set up / 你需要檢查軸標籤——「左」可能有利於治療或對照，取決於圖表的設置方式
 - C: All 8 studies had the same number of participants / 所有8項研究的參與者數量相同
-- D: The meta-analysis has no heterogeneity / Meta分析沒有異質性
+- D: The meta-analysis has no heterogeneity / 統合分析沒有異質性
 - Explanation: Forest plots can be oriented either way! Always check the label at the bottom (e.g., "Favors Treatment ← → Favors Control"). Never assume which direction is "good."
 - Explanation_zh: 森林圖可以兩種方向設置！始終檢查底部的標籤（例如「有利於治療 ← → 有利於對照」）。永遠不要假設哪個方向是「好的」。
 
@@ -267,20 +267,20 @@ Each question object:
 
 **HT-01**
 - Q: In meta-analysis, what does "heterogeneity" mean?
-- Q_zh: 在Meta分析中，「異質性」是什麼意思？
+- Q_zh: 在統合分析中，「異質性」是什麼意思？
 - A: The studies are all of low quality / 研究都是低質量的
 - B: The studies used different languages / 研究使用了不同的語言
 - C: ✅ The results vary across studies more than expected from chance alone / 研究間的結果差異超出了僅由隨機因素所預期的
-- D: The meta-analysis includes too many studies / Meta分析包含了太多研究
+- D: The meta-analysis includes too many studies / 統合分析包含了太多研究
 - Explanation: Heterogeneity means results are more different than random variation would explain. High heterogeneity suggests something — patient populations, dosing, study design — is causing results to diverge.
 - Explanation_zh: 異質性意味著結果之間的差異超過了隨機變異所能解釋的。高異質性表明某些因素——患者群體、劑量、研究設計——正在導致結果分歧。
 
 **HT-02**
 - Q: Your meta-analysis shows I² = 85%. What does this tell you?
-- Q_zh: 你的Meta分析顯示I² = 85%。這告訴你什麼？
+- Q_zh: 你的統合分析顯示I² = 85%。這告訴你什麼？
 - A: 85% of studies found a significant result / 85%的研究發現了顯著結果
 - B: ✅ 85% of variability across studies is due to real differences, not chance / 85%的研究間變異是由真實差異造成的，而非偶然
-- C: The meta-analysis is 85% accurate / Meta分析的準確率為85%
+- C: The meta-analysis is 85% accurate / 統合分析的準確率為85%
 - D: 85% of studies should be excluded / 85%的研究應該被排除
 - Explanation: I² describes what percentage of total variation is genuine heterogeneity rather than sampling error. 85% is high — you should explore why results differ (e.g., through subgroup analysis or meta-regression).
 - Explanation_zh: I²描述了總變異中有多少百分比是真正的異質性而非抽樣誤差。85%很高——你應該探索結果為何不同（例如，通過亞組分析或Meta回歸）。
@@ -297,7 +297,7 @@ Each question object:
 
 **HT-04**
 - Q: Your meta-analysis has I² = 75%. What is the BEST next step?
-- Q_zh: 你的Meta分析I² = 75%。最佳的下一步是什麼？
+- Q_zh: 你的統合分析I² = 75%。最佳的下一步是什麼？
 - A: Remove studies until I² drops below 50% / 刪除研究直到I²降到50%以下
 - B: Report the result and ignore heterogeneity / 報告結果並忽略異質性
 - C: ✅ Investigate sources of heterogeneity through subgroup analysis or meta-regression / 通過亞組分析或Meta回歸調查異質性的來源
@@ -307,7 +307,7 @@ Each question object:
 
 **HT-05**
 - Q: A meta-analysis of 4 studies shows I² = 0% and Q-test p = 0.85. Can you confidently say there is no heterogeneity?
-- Q_zh: 一項包含4項研究的Meta分析顯示I² = 0%且Q檢驗p = 0.85。你能自信地說沒有異質性嗎？
+- Q_zh: 一項包含4項研究的統合分析顯示I² = 0%且Q檢驗p = 0.85。你能自信地說沒有異質性嗎？
 - A: Yes — I² = 0% proves identical results / 是的——I² = 0%證明結果相同
 - B: ✅ No — with only 4 studies, both I² and Q have low power to detect real heterogeneity / 不能——只有4項研究時，I²和Q檢驗都缺乏檢測真實異質性的統計效力
 - C: Yes — the Q-test confirms it / 是的——Q檢驗確認了這一點
@@ -319,17 +319,17 @@ Each question object:
 
 **SS-01**
 - Q: What is PRISMA in the context of a systematic review?
-- Q_zh: 在系統綜述的背景下，PRISMA是什麼？
-- A: A statistical software package for running meta-analyses / 用於運行Meta分析的統計軟體包
-- B: ✅ A reporting guideline that provides a checklist and flow diagram for transparent reporting of systematic reviews / 一個報告指南，提供清單和流程圖，用於透明地報告系統綜述
+- Q_zh: 在系統性綜論的背景下，PRISMA是什麼？
+- A: A statistical software package for running meta-analyses / 用於運行統合分析的統計軟體包
+- B: ✅ A reporting guideline that provides a checklist and flow diagram for transparent reporting of systematic reviews / 一個報告指南，提供清單和流程圖，用於透明地報告系統性綜論
 - C: A database of published clinical trials / 已發表臨床試驗的數據庫
 - D: A method for calculating effect sizes / 一種計算效應量的方法
 - Explanation: PRISMA (Preferred Reporting Items for Systematic Reviews and Meta-Analyses) is a set of guidelines to help authors report their review process transparently. The flow diagram shows how many studies were found, screened, excluded, and included.
-- Explanation_zh: PRISMA（系統綜述和Meta分析的首選報告項目）是一套指南，幫助作者透明地報告其綜述過程。流程圖顯示了找到、篩選、排除和納入了多少研究。
+- Explanation_zh: PRISMA（系統性綜論和統合分析的首選報告項目）是一套指南，幫助作者透明地報告其綜述過程。流程圖顯示了找到、篩選、排除和納入了多少研究。
 
 **SS-02**
 - Q: Why should a systematic review search more than one database (e.g., PubMed, Embase, CENTRAL)?
-- Q_zh: 為什麼系統綜述應該搜索多個數據庫（如PubMed、Embase、CENTRAL）？
+- Q_zh: 為什麼系統性綜論應該搜索多個數據庫（如PubMed、Embase、CENTRAL）？
 - A: Different databases have different formatting, so results look better / 不同數據庫有不同格式，所以結果看起來更好
 - B: ✅ No single database indexes all published studies — using multiple databases reduces the chance of missing relevant evidence / 沒有單一數據庫索引所有已發表的研究——使用多個數據庫可以減少遺漏相關證據的機會
 - C: It is only necessary if the topic is rare / 只有在主題罕見時才有必要
@@ -339,7 +339,7 @@ Each question object:
 
 **SS-03**
 - Q: What are "inclusion and exclusion criteria" in a systematic review?
-- Q_zh: 系統綜述中的「納入和排除標準」是什麼？
+- Q_zh: 系統性綜論中的「納入和排除標準」是什麼？
 - A: Rules the journal uses to decide whether to publish the review / 期刊用來決定是否發表綜述的規則
 - B: ✅ Pre-defined rules that specify which studies qualify for the review and which do not / 預先定義的規則，指定哪些研究符合綜述資格，哪些不符合
 - C: A list of authors who are allowed to contribute to the review / 允許為綜述做貢獻的作者名單
@@ -371,13 +371,13 @@ Each question object:
 
 **BQ-01**
 - Q: What is "publication bias" in meta-analysis?
-- Q_zh: Meta分析中的「發表偏倚」是什麼？
+- Q_zh: 統合分析中的「發表偏倚」是什麼？
 - A: When journals only publish studies from famous researchers / 當期刊只發表知名研究者的研究時
 - B: ✅ When studies with positive or significant results are more likely to be published than those with negative or null results / 當具有陽性或顯著結果的研究比陰性或無效結果的研究更可能被發表時
-- C: When a meta-analysis includes too many studies from one journal / 當Meta分析包含太多來自同一期刊的研究時
-- D: When the meta-analysis itself fails to get published / 當Meta分析本身未能發表時
+- C: When a meta-analysis includes too many studies from one journal / 當統合分析包含太多來自同一期刊的研究時
+- D: When the meta-analysis itself fails to get published / 當統合分析本身未能發表時
 - Explanation: Studies showing significant results are more likely to be published. If your meta-analysis only finds these "winners," the pooled estimate may overestimate the true effect. This is one of the biggest threats to meta-analysis validity.
-- Explanation_zh: 顯示顯著結果的研究更可能被發表。如果你的Meta分析只找到這些「贏家」，合併估計值可能高估了真實效應。這是Meta分析有效性的最大威脅之一。
+- Explanation_zh: 顯示顯著結果的研究更可能被發表。如果你的統合分析只找到這些「贏家」，合併估計值可能高估了真實效應。這是統合分析有效性的最大威脅之一。
 
 **BQ-02**
 - Q: What is a funnel plot used for?
@@ -397,11 +397,11 @@ Each question object:
 - C: It is only needed for observational studies, not randomized trials / 這只有觀察性研究才需要，隨機試驗不需要
 - D: To determine the sample size of each study / 確定每項研究的樣本量
 - Explanation: A meta-analysis is only as good as its included studies. Tools like the Cochrane Risk of Bias tool assess domains such as randomization, blinding, and incomplete outcome data. High-risk studies can be analyzed separately in a sensitivity analysis.
-- Explanation_zh: Meta分析的質量取決於其納入的研究。Cochrane偏倚風險工具等工具評估隨機化、盲法和不完整結局數據等領域。高風險研究可以在敏感性分析中單獨分析。
+- Explanation_zh: 統合分析的質量取決於其納入的研究。Cochrane偏倚風險工具等工具評估隨機化、盲法和不完整結局數據等領域。高風險研究可以在敏感性分析中單獨分析。
 
 **BQ-04**
 - Q: What is a "sensitivity analysis" in meta-analysis?
-- Q_zh: Meta分析中的「敏感性分析」是什麼？
+- Q_zh: 統合分析中的「敏感性分析」是什麼？
 - A: A test of how sensitive patients were to the treatment / 對患者對治療敏感程度的測試
 - B: ✅ Repeating the analysis while changing assumptions to see if the main finding holds up / 在改變假設的情況下重複分析，看主要發現是否成立
 - C: Measuring how sensitive the search strategy was at finding studies / 衡量搜索策略在查找研究方面的敏感度
@@ -423,7 +423,7 @@ Each question object:
 
 **IN-01**
 - Q: A meta-analysis finds a statistically significant result (p = 0.03). Does this necessarily mean the finding is clinically important?
-- Q_zh: 一項Meta分析發現統計學上顯著的結果（p = 0.03）。這是否一定意味著該發現具有臨床重要性？
+- Q_zh: 一項統合分析發現統計學上顯著的結果（p = 0.03）。這是否一定意味著該發現具有臨床重要性？
 - A: Yes — statistical significance always means clinical importance / 是的——統計顯著性總是意味著臨床重要性
 - B: ✅ No — a result can be statistically significant but too small to matter in practice / 不——結果可以在統計學上顯著但太小以至於在實踐中無關緊要
 - C: Only if the confidence interval is narrow / 只有在信賴區間窄的情況下
@@ -433,43 +433,43 @@ Each question object:
 
 **IN-02**
 - Q: What is the "ecological fallacy" in the context of meta-analysis?
-- Q_zh: 在Meta分析的背景下，什麼是「生態學謬誤」？
+- Q_zh: 在統合分析的背景下，什麼是「生態學謬誤」？
 - A: Using studies that harm the environment / 使用危害環境的研究
 - B: ✅ Assuming that a relationship found at the study level applies to individual patients / 假設在研究層面發現的關係適用於個體患者
-- C: Including animal studies in a human meta-analysis / 在人類Meta分析中包含動物研究
+- C: Including animal studies in a human meta-analysis / 在人類統合分析中包含動物研究
 - D: Forgetting to include environmental factors in the analysis / 忘記在分析中包含環境因素
 - Explanation: Meta-regression might show that studies with higher average age have bigger effects, but this does NOT mean older individuals within each study responded better. Study-level patterns don't necessarily reflect individual-level relationships.
 - Explanation_zh: Meta回歸可能顯示平均年齡較高的研究有更大的效應，但這並不意味著每項研究中的老年個體反應更好。研究層面的模式不一定反映個體層面的關係。
 
 **IN-03**
 - Q: Your meta-analysis pools 12 RCTs and finds Drug X reduces mortality. Can you say Drug X "causes" lower mortality?
-- Q_zh: 你的Meta分析匯集了12項RCT，發現藥物X降低了死亡率。你能說藥物X「導致」了更低的死亡率嗎？
-- A: ✅ Yes — meta-analysis of RCTs provides the strongest evidence for causal claims / 是的——RCT的Meta分析為因果主張提供了最強的證據
-- B: No — meta-analysis can never make causal claims / 不能——Meta分析永遠不能做出因果主張
+- Q_zh: 你的統合分析匯集了12項RCT，發現藥物X降低了死亡率。你能說藥物X「導致」了更低的死亡率嗎？
+- A: ✅ Yes — meta-analysis of RCTs provides the strongest evidence for causal claims / 是的——RCT的統合分析為因果主張提供了最強的證據
+- B: No — meta-analysis can never make causal claims / 不能——統合分析永遠不能做出因果主張
 - C: Only if every single study individually showed a significant result / 只有在每項研究都單獨顯示顯著結果時
 - D: Only if I² is exactly 0% / 只有在I²恰好為0%時
 - Explanation: When included studies are well-conducted RCTs (designed to establish causation through randomization), a meta-analysis provides strong causal evidence. This is why meta-analyses of RCTs sit at the top of the evidence hierarchy.
-- Explanation_zh: 當納入的研究是設計良好的RCT（通過隨機化建立因果關係）時，Meta分析提供了強有力的因果證據。這就是為什麼RCT的Meta分析位於證據等級的頂端。
+- Explanation_zh: 當納入的研究是設計良好的RCT（通過隨機化建立因果關係）時，統合分析提供了強有力的因果證據。這就是為什麼RCT的統合分析位於證據等級的頂端。
 
 **IN-04**
 - Q: A meta-analysis from 2015 included 8 studies and found no significant effect. Since then, 5 new large trials have been published. What should happen?
-- Q_zh: 2015年的一項Meta分析包含8項研究，未發現顯著效應。此後，又發表了5項新的大型試驗。應該怎麼辦？
-- A: The 2015 result stands — meta-analyses do not expire / 2015年的結果不變——Meta分析不會過期
-- B: ✅ The meta-analysis should be updated to include the new evidence / Meta分析應該更新以包含新證據
+- Q_zh: 2015年的一項統合分析包含8項研究，未發現顯著效應。此後，又發表了5項新的大型試驗。應該怎麼辦？
+- A: The 2015 result stands — meta-analyses do not expire / 2015年的結果不變——統合分析不會過期
+- B: ✅ The meta-analysis should be updated to include the new evidence / 統合分析應該更新以包含新證據
 - C: The new trials should be ignored unless they all agree / 除非新試驗都一致，否則應忽略
 - D: Only update if the original authors agree / 只有在原作者同意時才更新
 - Explanation: Meta-analyses are living summaries of evidence. As new studies appear, the pooled estimate may change — sometimes enough to reverse the conclusion. Regularly updated or "living" meta-analyses are increasingly recognized as best practice.
-- Explanation_zh: Meta分析是證據的動態摘要。隨著新研究的出現，合併估計值可能改變——有時足以逆轉結論。定期更新或「活性」Meta分析越來越被認為是最佳實踐。
+- Explanation_zh: 統合分析是證據的動態摘要。隨著新研究的出現，合併估計值可能改變——有時足以逆轉結論。定期更新或「活性」統合分析越來越被認為是最佳實踐。
 
 **IN-05**
 - Q: Two meta-analyses on the same topic reach opposite conclusions. How is this possible?
-- Q_zh: 兩項關於同一主題的Meta分析得出了相反的結論。這怎麼可能？
+- Q_zh: 兩項關於同一主題的統合分析得出了相反的結論。這怎麼可能？
 - A: One of them must have made a mathematical error / 其中一項一定犯了數學錯誤
 - B: ✅ Differences in search dates, inclusion criteria, outcome definitions, or statistical models can lead to different results — both may be technically valid / 搜索日期、納入標準、結局定義或統計模型的差異可以導致不同結果——兩者在技術上可能都是有效的
 - C: This is impossible if both followed PRISMA guidelines / 如果兩者都遵循了PRISMA指南，這是不可能的
 - D: The one with more studies is automatically correct / 包含更多研究的那個自動正確
 - Explanation: Meta-analyses involve many judgment calls: which databases, which studies, how to define outcomes, which model. These choices can lead to different pooled estimates. This is why registering your protocol in advance (e.g., on PROSPERO) is so important.
-- Explanation_zh: Meta分析涉及許多判斷：哪些數據庫、哪些研究、如何定義結局、哪個模型。這些選擇可以導致不同的合併估計值。這就是為什麼提前註冊你的計畫書（例如在PROSPERO上）如此重要。
+- Explanation_zh: 統合分析涉及許多判斷：哪些數據庫、哪些研究、如何定義結局、哪個模型。這些選擇可以導致不同的合併估計值。這就是為什麼提前註冊你的計畫書（例如在PROSPERO上）如此重要。
 
 ---
 
@@ -522,9 +522,9 @@ eggHuntNext: "Next Egg →" / "下一個蛋 →"
 eggHuntResults: "See Your Basket →" / "查看你的籃子 →"
 eggHuntBasketTitle: "Your Egg Basket" / "你的彩蛋籃"
 eggHuntScore: "You found X out of 5 eggs!" / "你找到了X個蛋（共5個）！"
-eggHuntMaster: "Meta-Analysis Master 🏆" / "Meta分析大師 🏆"
-eggHuntExplorer: "Meta-Analysis Explorer 🥈" / "Meta分析探索者 🥈"
-eggHuntApprentice: "Meta-Analysis Apprentice 🥉" / "Meta分析學徒 🥉"
+eggHuntMaster: "Meta-Analysis Master 🏆" / "統合分析大師 🏆"
+eggHuntExplorer: "Meta-Analysis Explorer 🥈" / "統合分析探索者 🥈"
+eggHuntApprentice: "Meta-Analysis Apprentice 🥉" / "統合分析學徒 🥉"
 eggHuntKeepTrying: "Keep exploring! 🔍" / "繼續探索！🔍"
 eggHuntDownload: "Download Cheat Sheet" / "下載速查表"
 eggHuntPlayAgain: "Hunt Again →" / "再玩一次 →"
