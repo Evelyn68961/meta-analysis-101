@@ -204,51 +204,296 @@ function ForestPlotExplainer() {
   );
 }
 
-// ═══ QUIZ ═══
-function Quiz() {
-  const { t } = useI18n();
-  const questions = [
-    { q: t("quizQ1"), opts: [t("quizQ1A"), t("quizQ1B"), t("quizQ1C"), t("quizQ1D")], correct: 1, explanation: t("quizQ1Exp") },
-    { q: t("quizQ2"), opts: [t("quizQ2A"), t("quizQ2B"), t("quizQ2C"), t("quizQ2D")], correct: 2, explanation: t("quizQ2Exp") },
-    { q: t("quizQ3"), opts: [t("quizQ3A"), t("quizQ3B"), t("quizQ3C"), t("quizQ3D")], correct: 1, explanation: t("quizQ3Exp") },
-    { q: t("quizQ4"), opts: [t("quizQ4A"), t("quizQ4B"), t("quizQ4C"), t("quizQ4D")], correct: 2, explanation: t("quizQ4Exp") },
-    { q: t("quizQ5"), opts: [t("quizQ5A"), t("quizQ5B"), t("quizQ5C"), t("quizQ5D")], correct: 1, explanation: t("quizQ5Exp") },
+// ═══ EGG HUNT GAME ═══
+const EGG_COLORS = {
+  "what-why": "#2ECC71",
+  "data": "#3498DB",
+  "forest": "#F1C40F",
+  "heterogeneity": "#E74C3C",
+  "search": "#9B59B6",
+  "bias": "#E67E22",
+  "interpretation": "#95A5A6",
+};
+
+const EGG_CATEGORIES = [
+  { id: "what-why", nameKey: "eggCatDiscovery", sheetKey: "eggSheetDiscovery", sheetLink: "#cheatsheet-discovery" },
+  { id: "data", nameKey: "eggCatData", sheetKey: "eggSheetData", sheetLink: "#cheatsheet-data" },
+  { id: "forest", nameKey: "eggCatForest", sheetKey: "eggSheetForest", sheetLink: "#cheatsheet-forest" },
+  { id: "heterogeneity", nameKey: "eggCatVariety", sheetKey: "eggSheetVariety", sheetLink: "#cheatsheet-heterogeneity" },
+  { id: "search", nameKey: "eggCatSearch", sheetKey: "eggSheetSearch", sheetLink: "#cheatsheet-search" },
+  { id: "bias", nameKey: "eggCatBias", sheetKey: "eggSheetBias", sheetLink: "#cheatsheet-bias" },
+  { id: "interpretation", nameKey: "eggCatWisdom", sheetKey: "eggSheetWisdom", sheetLink: "#cheatsheet-interpretation" },
+];
+
+function getEggQuestions(t) {
+  return [
+    { id: "WW-01", category: "what-why", q: t("eggQ_WW01"), opts: [t("eggQ_WW01_A"), t("eggQ_WW01_B"), t("eggQ_WW01_C"), t("eggQ_WW01_D")], correct: 1, explanation: t("eggQ_WW01_Exp") },
+    { id: "WW-02", category: "what-why", q: t("eggQ_WW02"), opts: [t("eggQ_WW02_A"), t("eggQ_WW02_B"), t("eggQ_WW02_C"), t("eggQ_WW02_D")], correct: 2, explanation: t("eggQ_WW02_Exp") },
+    { id: "WW-03", category: "what-why", q: t("eggQ_WW03"), opts: [t("eggQ_WW03_A"), t("eggQ_WW03_B"), t("eggQ_WW03_C"), t("eggQ_WW03_D")], correct: 1, explanation: t("eggQ_WW03_Exp") },
+    { id: "WW-04", category: "what-why", q: t("eggQ_WW04"), opts: [t("eggQ_WW04_A"), t("eggQ_WW04_B"), t("eggQ_WW04_C"), t("eggQ_WW04_D")], correct: 2, explanation: t("eggQ_WW04_Exp") },
+    { id: "WW-05", category: "what-why", q: t("eggQ_WW05"), opts: [t("eggQ_WW05_A"), t("eggQ_WW05_B"), t("eggQ_WW05_C"), t("eggQ_WW05_D")], correct: 2, explanation: t("eggQ_WW05_Exp") },
+    { id: "DE-01", category: "data", q: t("eggQ_DE01"), opts: [t("eggQ_DE01_A"), t("eggQ_DE01_B"), t("eggQ_DE01_C"), t("eggQ_DE01_D")], correct: 1, explanation: t("eggQ_DE01_Exp") },
+    { id: "DE-02", category: "data", q: t("eggQ_DE02"), opts: [t("eggQ_DE02_A"), t("eggQ_DE02_B"), t("eggQ_DE02_C"), t("eggQ_DE02_D")], correct: 1, explanation: t("eggQ_DE02_Exp") },
+    { id: "DE-03", category: "data", q: t("eggQ_DE03"), opts: [t("eggQ_DE03_A"), t("eggQ_DE03_B"), t("eggQ_DE03_C"), t("eggQ_DE03_D")], correct: 2, explanation: t("eggQ_DE03_Exp") },
+    { id: "DE-04", category: "data", q: t("eggQ_DE04"), opts: [t("eggQ_DE04_A"), t("eggQ_DE04_B"), t("eggQ_DE04_C"), t("eggQ_DE04_D")], correct: 2, explanation: t("eggQ_DE04_Exp") },
+    { id: "DE-05", category: "data", q: t("eggQ_DE05"), opts: [t("eggQ_DE05_A"), t("eggQ_DE05_B"), t("eggQ_DE05_C"), t("eggQ_DE05_D")], correct: 2, explanation: t("eggQ_DE05_Exp") },
+    { id: "FP-01", category: "forest", q: t("eggQ_FP01"), opts: [t("eggQ_FP01_A"), t("eggQ_FP01_B"), t("eggQ_FP01_C"), t("eggQ_FP01_D")], correct: 1, explanation: t("eggQ_FP01_Exp") },
+    { id: "FP-02", category: "forest", q: t("eggQ_FP02"), opts: [t("eggQ_FP02_A"), t("eggQ_FP02_B"), t("eggQ_FP02_C"), t("eggQ_FP02_D")], correct: 1, explanation: t("eggQ_FP02_Exp") },
+    { id: "FP-03", category: "forest", q: t("eggQ_FP03"), opts: [t("eggQ_FP03_A"), t("eggQ_FP03_B"), t("eggQ_FP03_C"), t("eggQ_FP03_D")], correct: 2, explanation: t("eggQ_FP03_Exp") },
+    { id: "FP-04", category: "forest", q: t("eggQ_FP04"), opts: [t("eggQ_FP04_A"), t("eggQ_FP04_B"), t("eggQ_FP04_C"), t("eggQ_FP04_D")], correct: 1, explanation: t("eggQ_FP04_Exp") },
+    { id: "FP-05", category: "forest", q: t("eggQ_FP05"), opts: [t("eggQ_FP05_A"), t("eggQ_FP05_B"), t("eggQ_FP05_C"), t("eggQ_FP05_D")], correct: 1, explanation: t("eggQ_FP05_Exp") },
+    { id: "HT-01", category: "heterogeneity", q: t("eggQ_HT01"), opts: [t("eggQ_HT01_A"), t("eggQ_HT01_B"), t("eggQ_HT01_C"), t("eggQ_HT01_D")], correct: 2, explanation: t("eggQ_HT01_Exp") },
+    { id: "HT-02", category: "heterogeneity", q: t("eggQ_HT02"), opts: [t("eggQ_HT02_A"), t("eggQ_HT02_B"), t("eggQ_HT02_C"), t("eggQ_HT02_D")], correct: 1, explanation: t("eggQ_HT02_Exp") },
+    { id: "HT-03", category: "heterogeneity", q: t("eggQ_HT03"), opts: [t("eggQ_HT03_A"), t("eggQ_HT03_B"), t("eggQ_HT03_C"), t("eggQ_HT03_D")], correct: 1, explanation: t("eggQ_HT03_Exp") },
+    { id: "HT-04", category: "heterogeneity", q: t("eggQ_HT04"), opts: [t("eggQ_HT04_A"), t("eggQ_HT04_B"), t("eggQ_HT04_C"), t("eggQ_HT04_D")], correct: 2, explanation: t("eggQ_HT04_Exp") },
+    { id: "HT-05", category: "heterogeneity", q: t("eggQ_HT05"), opts: [t("eggQ_HT05_A"), t("eggQ_HT05_B"), t("eggQ_HT05_C"), t("eggQ_HT05_D")], correct: 1, explanation: t("eggQ_HT05_Exp") },
+    { id: "SS-01", category: "search", q: t("eggQ_SS01"), opts: [t("eggQ_SS01_A"), t("eggQ_SS01_B"), t("eggQ_SS01_C"), t("eggQ_SS01_D")], correct: 1, explanation: t("eggQ_SS01_Exp") },
+    { id: "SS-02", category: "search", q: t("eggQ_SS02"), opts: [t("eggQ_SS02_A"), t("eggQ_SS02_B"), t("eggQ_SS02_C"), t("eggQ_SS02_D")], correct: 1, explanation: t("eggQ_SS02_Exp") },
+    { id: "SS-03", category: "search", q: t("eggQ_SS03"), opts: [t("eggQ_SS03_A"), t("eggQ_SS03_B"), t("eggQ_SS03_C"), t("eggQ_SS03_D")], correct: 1, explanation: t("eggQ_SS03_Exp") },
+    { id: "SS-04", category: "search", q: t("eggQ_SS04"), opts: [t("eggQ_SS04_A"), t("eggQ_SS04_B"), t("eggQ_SS04_C"), t("eggQ_SS04_D")], correct: 2, explanation: t("eggQ_SS04_Exp") },
+    { id: "SS-05", category: "search", q: t("eggQ_SS05"), opts: [t("eggQ_SS05_A"), t("eggQ_SS05_B"), t("eggQ_SS05_C"), t("eggQ_SS05_D")], correct: 1, explanation: t("eggQ_SS05_Exp") },
+    { id: "BQ-01", category: "bias", q: t("eggQ_BQ01"), opts: [t("eggQ_BQ01_A"), t("eggQ_BQ01_B"), t("eggQ_BQ01_C"), t("eggQ_BQ01_D")], correct: 1, explanation: t("eggQ_BQ01_Exp") },
+    { id: "BQ-02", category: "bias", q: t("eggQ_BQ02"), opts: [t("eggQ_BQ02_A"), t("eggQ_BQ02_B"), t("eggQ_BQ02_C"), t("eggQ_BQ02_D")], correct: 1, explanation: t("eggQ_BQ02_Exp") },
+    { id: "BQ-03", category: "bias", q: t("eggQ_BQ03"), opts: [t("eggQ_BQ03_A"), t("eggQ_BQ03_B"), t("eggQ_BQ03_C"), t("eggQ_BQ03_D")], correct: 1, explanation: t("eggQ_BQ03_Exp") },
+    { id: "BQ-04", category: "bias", q: t("eggQ_BQ04"), opts: [t("eggQ_BQ04_A"), t("eggQ_BQ04_B"), t("eggQ_BQ04_C"), t("eggQ_BQ04_D")], correct: 1, explanation: t("eggQ_BQ04_Exp") },
+    { id: "BQ-05", category: "bias", q: t("eggQ_BQ05"), opts: [t("eggQ_BQ05_A"), t("eggQ_BQ05_B"), t("eggQ_BQ05_C"), t("eggQ_BQ05_D")], correct: 1, explanation: t("eggQ_BQ05_Exp") },
+    { id: "IN-01", category: "interpretation", q: t("eggQ_IN01"), opts: [t("eggQ_IN01_A"), t("eggQ_IN01_B"), t("eggQ_IN01_C"), t("eggQ_IN01_D")], correct: 1, explanation: t("eggQ_IN01_Exp") },
+    { id: "IN-02", category: "interpretation", q: t("eggQ_IN02"), opts: [t("eggQ_IN02_A"), t("eggQ_IN02_B"), t("eggQ_IN02_C"), t("eggQ_IN02_D")], correct: 1, explanation: t("eggQ_IN02_Exp") },
+    { id: "IN-03", category: "interpretation", q: t("eggQ_IN03"), opts: [t("eggQ_IN03_A"), t("eggQ_IN03_B"), t("eggQ_IN03_C"), t("eggQ_IN03_D")], correct: 0, explanation: t("eggQ_IN03_Exp") },
+    { id: "IN-04", category: "interpretation", q: t("eggQ_IN04"), opts: [t("eggQ_IN04_A"), t("eggQ_IN04_B"), t("eggQ_IN04_C"), t("eggQ_IN04_D")], correct: 1, explanation: t("eggQ_IN04_Exp") },
+    { id: "IN-05", category: "interpretation", q: t("eggQ_IN05"), opts: [t("eggQ_IN05_A"), t("eggQ_IN05_B"), t("eggQ_IN05_C"), t("eggQ_IN05_D")], correct: 1, explanation: t("eggQ_IN05_Exp") },
   ];
+}
+
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; }
+  return a;
+}
+
+function selectQuestions(t) {
+  const all = getEggQuestions(t);
+  const cats = shuffle(["what-why", "data", "forest", "heterogeneity", "search", "bias", "interpretation"]).slice(0, 5);
+  return cats.map(cat => {
+    const pool = all.filter(q => q.category === cat);
+    return pool[Math.floor(Math.random() * pool.length)];
+  });
+}
+
+function EggHuntGame() {
+  const { t } = useI18n();
+  const [phase, setPhase] = useState("welcome"); // welcome | playing | results
+  const [questions, setQuestions] = useState([]);
   const [current, setCurrent] = useState(0);
   const [selected, setSelected] = useState(null);
   const [answered, setAnswered] = useState(false);
-  const [score, setScore] = useState(0);
-  const [finished, setFinished] = useState(false);
+  const [results, setResults] = useState([]); // { category, correct, catObj }
+  const [cracked, setCracked] = useState(false);
 
-  const handleSelect = (idx) => { if (answered) return; setSelected(idx); setAnswered(true); if (idx === questions[current].correct) setScore((s) => s + 1); };
-  const next = () => { if (current < questions.length - 1) { setCurrent((c) => c + 1); setSelected(null); setAnswered(false); } else { setFinished(true); } };
-  const restart = () => { setCurrent(0); setSelected(null); setAnswered(false); setScore(0); setFinished(false); };
+  const startHunt = () => {
+    const qs = selectQuestions(t);
+    setQuestions(qs);
+    setCurrent(0);
+    setSelected(null);
+    setAnswered(false);
+    setResults([]);
+    setCracked(false);
+    setPhase("playing");
+  };
 
-  if (finished) {
-    const pct = Math.round((score / questions.length) * 100);
-    const emoji = pct === 100 ? "🎉" : pct >= 60 ? "👏" : "📚";
+  const handleSelect = (idx) => {
+    if (answered) return;
+    setSelected(idx);
+    setAnswered(true);
+    setCracked(true);
+    const isCorrect = idx === questions[current].correct;
+    setResults(prev => [...prev, { category: questions[current].category, correct: isCorrect }]);
+  };
+
+  const nextEgg = () => {
+    if (current < 4) {
+      setCurrent(c => c + 1);
+      setSelected(null);
+      setAnswered(false);
+      setCracked(false);
+    } else {
+      setPhase("results");
+    }
+  };
+
+  const score = results.filter(r => r.correct).length;
+  const catObj = (catId) => EGG_CATEGORIES.find(c => c.id === catId);
+  const font = "'Noto Sans TC', 'Outfit', sans-serif";
+  const serifFont = "'Noto Sans TC', 'Source Serif 4', serif";
+
+  // Welcome screen
+  if (phase === "welcome") {
     return (
       <div style={{ background: CARD_BG, borderRadius: 20, border: `1px solid ${LIGHT_BORDER}`, padding: "48px 32px", textAlign: "center", boxShadow: "0 2px 20px rgba(0,0,0,0.04)" }}>
-        <div style={{ fontSize: 48, marginBottom: 16 }}>{emoji}</div>
-        <h3 style={{ fontFamily: "'Noto Sans TC', 'Source Serif 4', serif", fontSize: 28, fontWeight: 700, color: DARK, marginBottom: 8 }}>{pct === 100 ? t("quizPerfect") : pct >= 60 ? t("quizWellDone") : t("quizKeepLearning")}</h3>
-        <p style={{ fontSize: 18, color: TEAL, fontWeight: 600, fontFamily: "'Noto Sans TC', 'Outfit', sans-serif", marginBottom: 8 }}>{t("quizCorrectCount", score, questions.length, pct)}</p>
-        <p style={{ fontSize: 14, color: MUTED, marginBottom: 28, fontFamily: "'Noto Sans TC', 'Outfit', sans-serif" }}>{pct === 100 ? t("quizPerfectMsg") : t("quizRetryMsg")}</p>
-        <button onClick={restart} style={btnPrimary}>{t("quizTryAgain")}</button>
+        <div style={{ display: "flex", justifyContent: "center", gap: 16, marginBottom: 28 }}>
+          {[EGG_COLORS["what-why"], EGG_COLORS["data"], EGG_COLORS["forest"], EGG_COLORS["heterogeneity"], EGG_COLORS["search"]].map((color, i) => (
+            <div key={i} style={{ width: 40, height: 52, borderRadius: "50% 50% 50% 50% / 60% 60% 40% 40%", background: `${color}22`, border: `2px dashed ${color}55`, transition: "all 0.3s", animation: `eggBob 2s ease-in-out ${i * 0.3}s infinite` }} />
+          ))}
+        </div>
+        <h3 style={{ fontFamily: serifFont, fontSize: 28, fontWeight: 700, color: DARK, marginBottom: 10 }}>
+          {t("eggHuntTitle")}
+        </h3>
+        <p style={{ fontSize: 15, color: MUTED, fontFamily: font, marginBottom: 32, maxWidth: 440, margin: "0 auto 32px" }}>
+          {t("eggHuntDesc")}
+        </p>
+        <button onClick={startHunt} style={{ ...btnPrimary, padding: "14px 32px", fontSize: 16 }}>{t("eggHuntStart")}</button>
+        <style>{`@keyframes eggBob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }`}</style>
       </div>
     );
   }
 
-  const q = questions[current];
-  return (
-    <div style={{ background: CARD_BG, borderRadius: 20, border: `1px solid ${LIGHT_BORDER}`, padding: "32px 28px", boxShadow: "0 2px 20px rgba(0,0,0,0.04)" }}>
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 20 }}>
-        <span style={{ fontSize: 12, color: MUTED, fontFamily: "'Noto Sans TC', 'Outfit', sans-serif" }}>{t("quizQuestion")} {current + 1} {t("quizOf")} {questions.length}</span>
-        <div style={{ display: "flex", gap: 4 }}>
-          {questions.map((_, i) => <div key={i} style={{ width: 24, height: 4, borderRadius: 2, background: i <= current ? TEAL : "#E8E6E1", transition: "background 0.3s" }} />)}
+  // Results screen
+  if (phase === "results") {
+    const tier = score >= 5 ? "master" : score >= 4 ? "explorer" : score >= 3 ? "apprentice" : "keep";
+    const tierEmoji = score >= 5 ? "\uD83C\uDFC6" : score >= 4 ? "\uD83E\uDD48" : score >= 3 ? "\uD83E\uDD49" : "\uD83D\uDD0D";
+    const tierLabel = score >= 5 ? t("eggHuntMaster") : score >= 4 ? t("eggHuntExplorer") : score >= 3 ? t("eggHuntApprentice") : t("eggHuntKeepTrying");
+    const unlockAll = score >= 4;
+
+    return (
+      <div style={{ background: CARD_BG, borderRadius: 20, border: `1px solid ${LIGHT_BORDER}`, padding: "40px 28px", boxShadow: "0 2px 20px rgba(0,0,0,0.04)" }}>
+        <div style={{ textAlign: "center", marginBottom: 28 }}>
+          <div style={{ fontSize: 48, marginBottom: 12 }}>{tierEmoji}</div>
+          <h3 style={{ fontFamily: serifFont, fontSize: 26, fontWeight: 700, color: DARK, marginBottom: 8 }}>{tierLabel}</h3>
+          <p style={{ fontSize: 17, color: TEAL, fontWeight: 600, fontFamily: font }}>{t("eggHuntScore", score)}</p>
+        </div>
+
+        {/* Basket */}
+        <div style={{ display: "flex", justifyContent: "center", gap: 14, marginBottom: 28, flexWrap: "wrap" }}>
+          {results.map((r, i) => {
+            const cat = catObj(r.category);
+            const color = EGG_COLORS[r.category];
+            return (
+              <div key={i} style={{ textAlign: "center" }}>
+                <div style={{
+                  width: 48, height: 62, borderRadius: "50% 50% 50% 50% / 60% 60% 40% 40%",
+                  background: r.correct ? color : "#DDD",
+                  opacity: r.correct ? 1 : 0.4,
+                  margin: "0 auto 6px",
+                  boxShadow: r.correct ? `0 4px 12px ${color}33` : "none",
+                  display: "flex", alignItems: "center", justifyContent: "center",
+                  fontSize: 20,
+                  transition: "all 0.3s",
+                }}>
+                  {r.correct ? "" : "💔"}
+                </div>
+                <span style={{ fontSize: 11, color: r.correct ? DARK : MUTED, fontFamily: font, fontWeight: r.correct ? 600 : 400 }}>
+                  {t(cat.nameKey)}
+                </span>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Cheat sheet downloads */}
+        {score >= 3 && (
+          <div style={{ background: `${TEAL}08`, border: `1px solid ${TEAL}1A`, borderRadius: 14, padding: "20px 22px", marginBottom: 24 }}>
+            <h4 style={{ fontSize: 14, fontWeight: 600, color: TEAL, marginBottom: 12, fontFamily: font }}>
+              {t("eggHuntDownload")}
+            </h4>
+            <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+              {results.map((r, i) => {
+                const cat = catObj(r.category);
+                const color = EGG_COLORS[r.category];
+                const canDownload = unlockAll || r.correct;
+                return (
+                  <a key={i} href={cat.sheetLink} style={{
+                    display: "flex", alignItems: "center", gap: 10, padding: "10px 14px",
+                    background: canDownload ? CARD_BG : "#F5F5F3", borderRadius: 10,
+                    border: `1px solid ${canDownload ? color + "44" : LIGHT_BORDER}`,
+                    textDecoration: "none", opacity: canDownload ? 1 : 0.5,
+                    pointerEvents: canDownload ? "auto" : "none",
+                    transition: "all 0.2s",
+                  }}>
+                    <div style={{ width: 28, height: 36, borderRadius: "50% 50% 50% 50% / 60% 60% 40% 40%", background: canDownload ? color : "#DDD", flexShrink: 0 }} />
+                    <div style={{ flex: 1 }}>
+                      <div style={{ fontSize: 13, fontWeight: 600, color: canDownload ? DARK : MUTED, fontFamily: font }}>{t(cat.sheetKey)}</div>
+                      <div style={{ fontSize: 11, color: MUTED, fontFamily: font }}>{t(cat.nameKey)}</div>
+                    </div>
+                    {canDownload && <span style={{ fontSize: 12, color: TEAL, fontWeight: 600 }}>↓</span>}
+                  </a>
+                );
+              })}
+              {score >= 5 && (
+                <a href="#cheatsheet-combined" style={{
+                  display: "flex", alignItems: "center", gap: 10, padding: "12px 14px",
+                  background: `${TEAL}0D`, borderRadius: 10, border: `1.5px solid ${TEAL}33`,
+                  textDecoration: "none", marginTop: 4, transition: "all 0.2s",
+                }}>
+                  <span style={{ fontSize: 20 }}>{"\uD83C\uDFC6"}</span>
+                  <span style={{ fontSize: 14, fontWeight: 600, color: TEAL, fontFamily: font }}>{t("eggHuntAllSheets")}</span>
+                  <span style={{ marginLeft: "auto", fontSize: 12, color: TEAL, fontWeight: 600 }}>↓</span>
+                </a>
+              )}
+            </div>
+          </div>
+        )}
+
+        <div style={{ textAlign: "center" }}>
+          <button onClick={startHunt} style={btnPrimary}>{t("eggHuntPlayAgain")}</button>
         </div>
       </div>
-      <h3 style={{ fontFamily: "'Noto Sans TC', 'Source Serif 4', serif", fontSize: 20, fontWeight: 600, color: DARK, marginBottom: 20, lineHeight: 1.4 }}>{q.q}</h3>
-      <div style={{ display: "flex", flexDirection: "column", gap: 10, marginBottom: 20 }}>
+    );
+  }
+
+  // Playing phase
+  const q = questions[current];
+  const cat = catObj(q.category);
+  const eggColor = EGG_COLORS[q.category];
+  const isCorrect = selected !== null && selected === q.correct;
+
+  return (
+    <div style={{ background: CARD_BG, borderRadius: 20, border: `1px solid ${LIGHT_BORDER}`, padding: "32px 28px", boxShadow: "0 2px 20px rgba(0,0,0,0.04)" }}>
+      {/* Progress eggs */}
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 20 }}>
+        <span style={{ fontSize: 12, color: MUTED, fontFamily: font }}>{t("eggHuntProgress", current + 1)}</span>
+        <div style={{ display: "flex", gap: 6 }}>
+          {Array.from({ length: 5 }).map((_, i) => {
+            const pastResult = results[i];
+            let bg = "#E8E6E1";
+            if (i < current) bg = pastResult?.correct ? EGG_COLORS[pastResult.category] : "#DDD";
+            else if (i === current) bg = eggColor;
+            return (
+              <div key={i} style={{
+                width: 20, height: 26, borderRadius: "50% 50% 50% 50% / 60% 60% 40% 40%",
+                background: bg, opacity: i <= current ? 1 : 0.4,
+                transition: "all 0.3s",
+                boxShadow: i === current ? `0 2px 8px ${eggColor}44` : "none",
+              }} />
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Egg display */}
+      <div style={{ textAlign: "center", marginBottom: 20 }}>
+        <div style={{
+          width: 64, height: 82, borderRadius: "50% 50% 50% 50% / 60% 60% 40% 40%",
+          background: cracked && !isCorrect && answered ? "#DDD" : eggColor,
+          margin: "0 auto 12px", display: "flex", alignItems: "center", justifyContent: "center",
+          boxShadow: `0 4px 16px ${eggColor}33`,
+          animation: cracked ? (isCorrect ? "eggCollect 0.6s ease-out" : "eggCrack 0.5s ease-out") : "none",
+          position: "relative",
+          transition: "background 0.3s",
+        }}>
+          {cracked && answered && (
+            <span style={{ fontSize: 24 }}>{isCorrect ? "✓" : "✗"}</span>
+          )}
+        </div>
+        <span style={{ fontSize: 12, fontWeight: 600, color: eggColor, fontFamily: font, letterSpacing: 1, textTransform: "uppercase" }}>
+          {t(cat.nameKey)}
+        </span>
+      </div>
+
+      {/* Question */}
+      <h3 style={{ fontFamily: serifFont, fontSize: 19, fontWeight: 600, color: DARK, marginBottom: 18, lineHeight: 1.45 }}>{q.q}</h3>
+
+      {/* Options */}
+      <div style={{ display: "flex", flexDirection: "column", gap: 10, marginBottom: 18 }}>
         {q.opts.map((opt, idx) => {
           let bg = "#FAFAF7", border = LIGHT_BORDER, color = DARK;
           if (answered) {
@@ -256,20 +501,62 @@ function Quiz() {
             else if (idx === selected && idx !== q.correct) { bg = "#FDEEEB"; border = "#D94B2E"; color = "#B83A20"; }
           }
           return (
-            <button key={idx} onClick={() => handleSelect(idx)} style={{ background: bg, border: `1.5px solid ${border}`, borderRadius: 12, padding: "14px 18px", textAlign: "left", fontSize: 15, color, fontFamily: "'Noto Sans TC', 'Outfit', sans-serif", cursor: answered ? "default" : "pointer", transition: "all 0.2s", fontWeight: answered && idx === q.correct ? 600 : 400 }}>
-              <span style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", width: 24, height: 24, borderRadius: "50%", border: `1.5px solid ${border}`, fontSize: 12, fontWeight: 600, marginRight: 12, background: answered && idx === q.correct ? "#3DA87A" : "transparent", color: answered && idx === q.correct ? "#FFF" : color }}>{String.fromCharCode(65 + idx)}</span>
+            <button key={idx} onClick={() => handleSelect(idx)} style={{
+              background: bg, border: `1.5px solid ${border}`, borderRadius: 12,
+              padding: "14px 18px", textAlign: "left", fontSize: 15, color,
+              fontFamily: font, cursor: answered ? "default" : "pointer",
+              transition: "all 0.2s", fontWeight: answered && idx === q.correct ? 600 : 400,
+            }}>
+              <span style={{
+                display: "inline-flex", alignItems: "center", justifyContent: "center",
+                width: 24, height: 24, borderRadius: "50%", border: `1.5px solid ${border}`,
+                fontSize: 12, fontWeight: 600, marginRight: 12,
+                background: answered && idx === q.correct ? "#3DA87A" : "transparent",
+                color: answered && idx === q.correct ? "#FFF" : color,
+              }}>{String.fromCharCode(65 + idx)}</span>
               {opt}
             </button>
           );
         })}
       </div>
+
+      {/* Feedback */}
       {answered && (
-        <div style={{ background: selected === q.correct ? "#E6F5F0" : "#FDEEEB", borderRadius: 12, padding: "14px 18px", marginBottom: 16, fontSize: 14, lineHeight: 1.65, color: MUTED, fontFamily: "'Noto Sans TC', 'Outfit', sans-serif", border: `1px solid ${selected === q.correct ? "#3DA87A33" : "#D94B2E33"}` }}>
-          <strong style={{ color: selected === q.correct ? "#2A7A5A" : "#B83A20" }}>{selected === q.correct ? t("quizCorrectMark") : t("quizWrongMark")}</strong>
+        <div style={{
+          background: isCorrect ? "#E6F5F0" : "#FDEEEB", borderRadius: 12,
+          padding: "14px 18px", marginBottom: 16, fontSize: 14, lineHeight: 1.65,
+          color: MUTED, fontFamily: font,
+          border: `1px solid ${isCorrect ? "#3DA87A33" : "#D94B2E33"}`,
+        }}>
+          <strong style={{ color: isCorrect ? "#2A7A5A" : "#B83A20" }}>
+            {isCorrect ? t("eggHuntCorrect", t(cat.nameKey)) : t("eggHuntWrong")}
+          </strong>{" "}
           {q.explanation}
         </div>
       )}
-      {answered && <div style={{ textAlign: "right" }}><button onClick={next} style={btnPrimary}>{current < questions.length - 1 ? t("quizNextBtn") : t("quizResultsBtn")}</button></div>}
+
+      {/* Next button */}
+      {answered && (
+        <div style={{ textAlign: "right" }}>
+          <button onClick={nextEgg} style={btnPrimary}>
+            {current < 4 ? t("eggHuntNext") : t("eggHuntResults")}
+          </button>
+        </div>
+      )}
+
+      <style>{`
+        @keyframes eggCollect {
+          0% { transform: scale(1); }
+          50% { transform: scale(1.2); }
+          100% { transform: scale(1); }
+        }
+        @keyframes eggCrack {
+          0% { transform: scale(1); }
+          30% { transform: scale(1.1) rotate(5deg); }
+          60% { transform: scale(0.95) rotate(-3deg); }
+          100% { transform: scale(1) rotate(0); }
+        }
+      `}</style>
     </div>
   );
 }
@@ -499,12 +786,12 @@ export default function MetaAnalysisGuide() {
         </FadeIn>
       </Section>
 
-      {/* QUIZ */}
+      {/* EGG HUNT */}
       <Section id="quiz" accent>
-        <FadeIn><SectionLabel text={t("quizLabel")} /><SectionTitle>{t("quizTitle")}</SectionTitle>
-          <Paragraph style={{ marginBottom: 32 }}>{t("quizDesc")}</Paragraph>
+        <FadeIn><SectionLabel text={t("eggHuntLabel")} /><SectionTitle>{t("eggHuntTitle")}</SectionTitle>
+          <Paragraph style={{ marginBottom: 32 }}>{t("eggHuntDesc")}</Paragraph>
         </FadeIn>
-        <FadeIn delay={0.1}><Quiz /></FadeIn>
+        <FadeIn delay={0.1}><EggHuntGame /></FadeIn>
       </Section>
 
       {/* FOOTER */}
