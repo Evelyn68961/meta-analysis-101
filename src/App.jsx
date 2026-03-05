@@ -342,13 +342,13 @@ const EGG_COLORS = {
 };
 
 const EGG_CATEGORIES = [
-  { id: "what-why", nameKey: "eggCatDiscovery", sheetKey: "eggSheetDiscovery", sheetLink: "#cheatsheet-discovery" },
-  { id: "data", nameKey: "eggCatData", sheetKey: "eggSheetData", sheetLink: "#cheatsheet-data" },
-  { id: "forest", nameKey: "eggCatForest", sheetKey: "eggSheetForest", sheetLink: "#cheatsheet-forest" },
-  { id: "heterogeneity", nameKey: "eggCatVariety", sheetKey: "eggSheetVariety", sheetLink: "#cheatsheet-heterogeneity" },
-  { id: "search", nameKey: "eggCatSearch", sheetKey: "eggSheetSearch", sheetLink: "#cheatsheet-search" },
-  { id: "bias", nameKey: "eggCatBias", sheetKey: "eggSheetBias", sheetLink: "#cheatsheet-bias" },
-  { id: "interpretation", nameKey: "eggCatWisdom", sheetKey: "eggSheetWisdom", sheetLink: "#cheatsheet-interpretation" },
+  { id: "what-why", nameKey: "eggCatDiscovery", sheetKey: "eggSheetDiscovery", sheetLink: "/cheatsheets/cheatsheet_discovery_egg.png" },
+  { id: "data", nameKey: "eggCatData", sheetKey: "eggSheetData", sheetLink: "/cheatsheets/cheatsheet_data_egg.png" },
+  { id: "forest", nameKey: "eggCatForest", sheetKey: "eggSheetForest", sheetLink: "/cheatsheets/cheatsheet_forest_egg.png" },
+  { id: "heterogeneity", nameKey: "eggCatVariety", sheetKey: "eggSheetVariety", sheetLink: "/cheatsheets/cheatsheet_variety_egg.png" },
+  { id: "search", nameKey: "eggCatSearch", sheetKey: "eggSheetSearch", sheetLink: "/cheatsheets/cheatsheet_search_egg.png"  },
+  { id: "bias", nameKey: "eggCatBias", sheetKey: "eggSheetBias", sheetLink: "/cheatsheets/cheatsheet_bias_egg.png" },
+  { id: "interpretation", nameKey: "eggCatWisdom", sheetKey: "eggSheetWisdom", sheetLink: "/cheatsheets/cheatsheet_wisdom_egg.png" },
 ];
 
 function getEggQuestions(t) {
@@ -516,7 +516,7 @@ function EggHuntGame() {
                 const color = EGG_COLORS[r.category];
                 const canDownload = unlockAll || r.correct;
                 return (
-                  <a key={i} href={cat.sheetLink} style={{
+                  <a key={i} href={cat.sheetLink} download target="_blank" rel="noopener noreferrer" style={{
                     display: "flex", alignItems: "center", gap: 10, padding: "10px 14px",
                     background: canDownload ? CARD_BG : "#F5F5F3", borderRadius: 10,
                     border: `1px solid ${canDownload ? color + "44" : LIGHT_BORDER}`,
@@ -534,7 +534,19 @@ function EggHuntGame() {
                 );
               })}
               {score >= 5 && (
-                <a href="#cheatsheet-combined" style={{
+                <a href="#" onClick={(e) => {
+                    e.preventDefault();
+                    EGG_CATEGORIES.forEach((c, idx) => {
+                      setTimeout(() => {
+                        const a = document.createElement("a");
+                        a.href = c.sheetLink;
+                        a.download = c.sheetLink.split("/").pop();
+                        document.body.appendChild(a);
+                        a.click();
+                        document.body.removeChild(a);
+                      }, idx * 300);
+                    });
+                  }}  style={{
                   display: "flex", alignItems: "center", gap: 10, padding: "12px 14px",
                   background: `${TEAL}0D`, borderRadius: 10, border: `1.5px solid ${TEAL}33`,
                   textDecoration: "none", marginTop: 4, transition: "all 0.2s",
