@@ -634,7 +634,7 @@ const translations = {
 
     // Egg Hunt UI
     eggHuntLabel: "Test Yourself",
-    eggHuntTitle: "Easter Egg Hunt",
+    eggHuntTitle: "Egg Hunt",
     eggHuntDesc: "Find 5 hidden eggs and test your meta-analysis knowledge! Each correct answer collects an egg in your basket.",
     eggHuntStart: "Start Hunt →",
     eggHuntProgress: (current) => `Egg ${current} of 5`,
