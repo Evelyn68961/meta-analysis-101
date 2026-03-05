@@ -180,7 +180,7 @@ const translations = {
     eggHuntNext: "下一個蛋 →",
     eggHuntResults: "查看你的籃子 →",
     eggHuntBasketTitle: "你的彩蛋籃",
-    eggHuntScore: (n) => `你找到了${n}個蛋（共7個）！`,
+    eggHuntScore: (n) => `你找到了${n}個蛋！`,
     eggHuntMaster: "統合分析大師",
     eggHuntExplorer: "統合分析探索者",
     eggHuntApprentice: "統合分析學徒",
