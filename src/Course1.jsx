@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useI18n } from "./i18n";
 import CuteDino from "./CuteDino";
+import { course1Questions, pickBalanced } from "./questionBank";
 
 // ═══ DESIGN TOKENS (matching existing site) ═══
 const TEAL = "#0E7C86";
@@ -149,21 +150,17 @@ function DragonEggGame({ t, lang }) {
     setTimeout(() => setParticles([]), 2500);
   };
 
-  const allQuestions = [
-    { q: t("c1q1"), opts: [t("c1q1a"), t("c1q1b"), t("c1q1c"), t("c1q1d")], correct: t("c1q1correct"), exp: t("c1q1exp") },
-    { q: t("c1q2"), opts: [t("c1q2a"), t("c1q2b"), t("c1q2c"), t("c1q2d")], correct: t("c1q2correct"), exp: t("c1q2exp") },
-    { q: t("c1q3"), opts: [t("c1q3a"), t("c1q3b"), t("c1q3c"), t("c1q3d")], correct: t("c1q3correct"), exp: t("c1q3exp") },
-    { q: t("c1q4"), opts: [t("c1q4a"), t("c1q4b"), t("c1q4c"), t("c1q4d")], correct: t("c1q4correct"), exp: t("c1q4exp") },
-    { q: t("c1q5"), opts: [t("c1q5a"), t("c1q5b"), t("c1q5c"), t("c1q5d")], correct: t("c1q5correct"), exp: t("c1q5exp") },
-    { q: t("c1q6"), opts: [t("c1q6a"), t("c1q6b"), t("c1q6c"), t("c1q6d")], correct: t("c1q6correct"), exp: t("c1q6exp") },
-    { q: t("c1q7"), opts: [t("c1q7a"), t("c1q7b"), t("c1q7c"), t("c1q7d")], correct: t("c1q7correct"), exp: t("c1q7exp") },
-  ];
-
   const pickEgg = (index) => {
     setChosenEgg(index);
-    // Shuffle and pick 5 questions
-    const shuffled = [...allQuestions].sort(() => Math.random() - 0.5);
-    setQuestions(shuffled);
+    // Pick 7 balanced questions from the 70-question pool
+    const picked = pickBalanced(course1Questions, 7);
+    const localized = picked.map(q => ({
+      q: q[lang].q,
+      opts: q[lang].opts,
+      correct: q.correct,
+      exp: q[lang].exp,
+    }));
+    setQuestions(localized);
     setCurrent(0); setSelected(null); setAnswered(false);
     setCorrectCount(0); setWrongCount(0);
     setEggStage(0); setIceStage(0); setGameOver(false);
