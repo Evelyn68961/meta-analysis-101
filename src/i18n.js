@@ -1365,12 +1365,16 @@ const translations = {
 
 const I18nContext = createContext();
 
+// First visit: Chinese browsers get Chinese, all others get English.
+const browserLang = () =>
+  (navigator.language || "").toLowerCase().startsWith("zh") ? "zh" : "en";
+
 export function I18nProvider({ children }) {
   const [lang, setLang] = useState(() => {
     try {
-      return localStorage.getItem("ma101-lang") || "zh";
+      return localStorage.getItem("ma101-lang") || browserLang();
     } catch {
-      return "zh";
+      return browserLang();
     }
   });
 
