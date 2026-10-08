@@ -126,7 +126,7 @@ const T = {
     gateDesc: "你已完成規劃階段。前往分析篇繼續你的統合分析。",
     goToFinal: "前往分析篇 →",
     gateBlocked: "尚未達成條件",
-    gateNeedPico: "PICO 需通過 AI 檢查",
+    gateNeedPico: "PICO 需填寫完整",
     gateNeedStudies: "至少需要 3 篇納入研究",
     // Demo
     tryDemo: "試用範例資料",
@@ -246,7 +246,7 @@ const T = {
     gateDesc: "You've finished the planning phase. Continue to the analysis workshop.",
     goToFinal: "Go to Analysis Workshop →",
     gateBlocked: "Requirements not met",
-    gateNeedPico: "PICO must pass AI check",
+    gateNeedPico: "PICO must be complete",
     gateNeedStudies: "At least 3 included studies required",
     // Demo
     tryDemo: "Try with example data",
@@ -1482,9 +1482,16 @@ function Step5RoB({ project, setProject, lang }) {
 // ═══ PHASE GATE ═══
 function PhaseGate({ project, onNavigate, lang }) {
   const tx = T[lang];
-  const picoPass = project._picoPass;
+  // The AI check is advisory only — it must never block progression (the AI
+  // service can be unavailable). The gate requires a *complete* PICO, not AI
+  // approval, so students are never locked out by an external dependency.
+  const pico = project.pico || {};
+  const picoComplete = Boolean(
+    (project.topic || "").trim() &&
+    ["p", "i", "c", "o"].every(k => (pico[k] || "").trim())
+  );
   const includedCount = (project.studies || []).filter(s => s.included).length;
-  const canProceed = picoPass && includedCount >= 3;
+  const canProceed = picoComplete && includedCount >= 3;
 
   return (
     <Card style={{ textAlign: "center", padding: 32 }}>
@@ -1512,8 +1519,8 @@ function PhaseGate({ project, onNavigate, lang }) {
           <div style={{ fontSize: 48, marginBottom: 12 }}>🔒</div>
           <h3 style={{ fontSize: 22, fontWeight: 700, color: DARK, marginBottom: 16 }}>{tx.gateBlocked}</h3>
           <div style={{ display: "flex", flexDirection: "column", gap: 8, alignItems: "center" }}>
-            <div style={{ fontSize: 14, color: picoPass ? GREEN : RED, display: "flex", alignItems: "center", gap: 8 }}>
-              <span>{picoPass ? "✅" : "❌"}</span> {tx.gateNeedPico}
+            <div style={{ fontSize: 14, color: picoComplete ? GREEN : RED, display: "flex", alignItems: "center", gap: 8 }}>
+              <span>{picoComplete ? "✅" : "❌"}</span> {tx.gateNeedPico}
             </div>
             <div style={{ fontSize: 14, color: includedCount >= 3 ? GREEN : RED, display: "flex", alignItems: "center", gap: 8 }}>
               <span>{includedCount >= 3 ? "✅" : "❌"}</span> {tx.gateNeedStudies} ({includedCount}/3)

@@ -46,12 +46,23 @@ export default function CourseNotes({ user, courseId, courseTitle, lang = "en" }
   const [status, setStatus] = useState("idle"); // idle | saving | saved | localOnly | error
   const [savedAt, setSavedAt] = useState(null);
   const [, force] = useState(0);
+  const [emailState, setEmailState] = useState("idle"); // idle | sending | sent | error
+  const [emailError, setEmailError] = useState("");
+  const [emailTo, setEmailTo] = useState("");
 
   const contentRef = useRef("");
   const dirtyRef = useRef(false);
   const timerRef = useRef(null);
 
   contentRef.current = content;
+
+  // Auto-fill recipient with the signed-in user's email (only if the user
+  // hasn't already typed something).
+  useEffect(() => {
+    if (user?.email) {
+      setEmailTo((prev) => (prev ? prev : user.email));
+    }
+  }, [user]);
 
   const persistLocal = useCallback((text) => {
     try {
@@ -183,6 +194,25 @@ export default function CourseNotes({ user, courseId, courseTitle, lang = "en" }
     timerRef.current = setTimeout(() => { flush(); }, DEBOUNCE_MS);
   };
 
+  const handleEmail = useCallback(async () => {
+    if (!content.trim() || emailState === "sending") return;
+    setEmailState("sending");
+    setEmailError("");
+    try {
+      // Flush any pending edits first so the email matches what's saved.
+      if (timerRef.current) clearTimeout(timerRef.current);
+      await flush();
+      await emailNotes({ content, courseTitle, lang, to: emailTo });
+      setEmailState("sent");
+      setTimeout(() => setEmailState((s) => (s === "sent" ? "idle" : s)), 4000);
+    } catch (err) {
+      setEmailState("error");
+      setEmailError(err?.message || (lang === "zh" ? "寄送失敗" : "Send failed"));
+    }
+  }, [content, courseTitle, lang, flush, emailState, emailTo]);
+
+  const emailLooksValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailTo.trim());
+
   const statusLabel =
     !hydrated                  ? (lang === "zh" ? "載入中…" : "Loading…")
     : status === "saving"       ? (lang === "zh" ? "儲存中…" : "Saving…")
@@ -302,8 +332,44 @@ export default function CourseNotes({ user, courseId, courseTitle, lang = "en" }
           {statusLabel}
         </div>
 
-        {/* Action bar */}
-        <div style={{ padding: "12px 16px 16px", borderTop: `1px solid ${LIGHT_BORDER}`, display: "flex", gap: 8, flexWrap: "wrap" }}>
+        {/* Email feedback line */}
+        {emailState !== "idle" && (
+          <div style={{
+            padding: "6px 20px",
+            fontSize: 11,
+            color: emailState === "error" ? "#B23A48" : emailState === "sent" ? TEAL : MUTED,
+            background: emailState === "error" ? "#FDECEE" : emailState === "sent" ? "#E8F4F5" : "transparent",
+          }}>
+            {emailState === "sending" && (lang === "zh" ? "寄送中…" : "Sending…")}
+            {emailState === "sent" && (lang === "zh" ? "✓ 已寄出到您的信箱" : "✓ Sent to your inbox")}
+            {emailState === "error" && `⚠ ${emailError}`}
+          </div>
+        )}
+
+        {/* Email input — full width on its own row */}
+        <div style={{ padding: "12px 16px 0", borderTop: `1px solid ${LIGHT_BORDER}` }}>
+          <input
+            type="email"
+            value={emailTo}
+            onChange={(e) => setEmailTo(e.target.value)}
+            placeholder={lang === "zh" ? "your@email.com" : "your@email.com"}
+            style={{
+              width: "100%",
+              boxSizing: "border-box",
+              padding: "9px 11px",
+              borderRadius: 8,
+              border: `1px solid ${LIGHT_BORDER}`,
+              fontSize: 13,
+              fontFamily: FONT,
+              color: DARK,
+              outline: "none",
+              background: "#FFF",
+            }}
+          />
+        </div>
+
+        {/* Action row — downloads on left, Send fills the rest */}
+        <div style={{ padding: "10px 16px 16px", display: "flex", gap: 8 }}>
           <button
             onClick={() => downloadNotesTxt({ content, courseTitle })}
             disabled={!content.trim()}
@@ -315,10 +381,14 @@ export default function CourseNotes({ user, courseId, courseTitle, lang = "en" }
             style={btnSecondary(!!content.trim())}
           >.docx</button>
           <button
-            onClick={() => emailNotes({ content, courseTitle, lang })}
-            disabled={!content.trim()}
-            style={btnPrimary(!!content.trim())}
-          >📧 {lang === "zh" ? "寄到信箱" : "Email me"}</button>
+            onClick={handleEmail}
+            disabled={!content.trim() || !emailLooksValid || emailState === "sending"}
+            style={btnPrimary(!!content.trim() && emailLooksValid && emailState !== "sending")}
+          >
+            {emailState === "sending"
+              ? (lang === "zh" ? "寄送中…" : "Sending…")
+              : <>📧 {lang === "zh" ? "寄送" : "Send"}</>}
+          </button>
         </div>
       </aside>
     </>

@@ -65,11 +65,23 @@ export async function downloadNotesDocx({ content, courseTitle }) {
   downloadBlob(blob, `meta-analysis-${safeFilename(courseTitle)}-notes-${stamp}.docx`);
 }
 
-export function emailNotes({ content, courseTitle, lang = "en" }) {
-  const subject = lang === "zh"
-    ? `我的筆記 — ${courseTitle}`
-    : `My notes — ${courseTitle}`;
-  const body = (content || "").slice(0, 1800);
-  const url = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-  window.location.href = url;
+/**
+ * Send the note to a user-specified email via /api/send-notes (Gmail SMTP).
+ * Throws on failure — callers should wrap in try/catch and surface a status.
+ */
+export async function emailNotes({ content, courseTitle, lang = "en", to }) {
+  const recipient = String(to || "").trim();
+  if (!recipient) {
+    throw new Error(lang === "zh" ? "請輸入電子郵件" : "Please enter an email address");
+  }
+  const res = await fetch("/api/send-notes", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ content, courseTitle, lang, to: recipient }),
+  });
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) {
+    throw new Error(data?.error || (lang === "zh" ? "寄送失敗" : "Send failed"));
+  }
+  return data;
 }

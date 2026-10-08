@@ -78,14 +78,10 @@ One note per `(user_id, course_id)` pair. Simpler UX, simpler schema, matches ho
 
 ### Export
 
-All export is client-side — no backend needed for v1.
-
-- **Download `.txt`** — `Blob` + `URL.createObjectURL`.
-- **Download `.docx`** — reuse the existing `docx` dependency (pattern in [generateReport.js](../src/generateReport.js)).
-- **Email** — `mailto:` link with subject + URL-encoded body. No backend, no deliverability risk, opens user's mail client. Caveat: ~2KB body limit in some clients.
+- **Download `.txt`** — `Blob` + `URL.createObjectURL`. Client-side.
+- **Download `.docx`** — reuse the existing `docx` dependency (pattern in [generateReport.js](../src/generateReport.js)). Client-side.
+- **Email** — POST to `/api/send-notes` (Vercel serverless function); backend dispatches the email via Gmail SMTP. See "Email transition: mailto → Gmail SMTP" under post-shipment hardening for the v1-to-v2 history.
 - Filenames timestamped: `meta-analysis-course1-notes-2026-05-02.docx`.
-
-If users later need long-form email or a permanent record, add a serverless `/api/email-notes` endpoint that calls Resend/SendGrid and pulls the recipient address server-side from Supabase auth (never trust the client to specify the recipient — that's an open relay).
 
 ### Reading notes later
 
@@ -192,7 +188,7 @@ Workshop persistence first — it's a regression fix for an existing broken beha
 
 ### Open questions to resolve before coding
 - Confirm the right edge of each course page (Course0–5) is genuinely empty in the rightmost 360px when drawer is open — verify per course before committing.
-- Confirm `mailto:` is acceptable for v1, or whether we should plan the serverless email endpoint up front.
+- Confirm `mailto:` is acceptable for v1, or whether we should plan the serverless email endpoint up front. *(Resolved: shipped `mailto:` in v1; replaced with Gmail SMTP in a follow-up — see "Email transition" below.)*
 - Confirm note scope: one note per course (recommended) vs. allow multiple named notes per course.
 
 ---
@@ -319,3 +315,39 @@ Originally the Midterm RoB section was labeled "RoB 2" but used the legacy Cochr
 13. Disconnect network → type in a workshop → status flips to `Save failed` but the draft is in localStorage; reconnect, edit one character → status goes through `Saving…` → `Autosaved`.
 14. Open the Final exam after switching the Midterm project from a binary outcome to a continuous outcome → effect-type radio defaults to `MD`, not the stale `OR`.
 15. Load a Midterm project saved before the RoB 2 refactor → Step 5 shows the dismissible "RoB 2 upgrade" banner; only the Randomization column has values; banner stays dismissed across reloads.
+
+### Email transition: `mailto:` → Gmail SMTP
+
+**Why we replaced it.** The v1 `mailto:` link satisfied the literal spec ("share to email") but did not actually deliver mail — it just handed off a pre-filled draft to the user's default mail client. Many students didn't realize a separate send step was still required and assumed the email had gone out. The button label "Email me" actively misled — nothing was emailed *to* anyone until the user took action in another app.
+
+**What replaced it.** A real send via a new Vercel serverless function:
+
+- New `api/send-notes.js` (~95 lines) — POST endpoint. Validates email format, content length (50KB cap), and HTML-escapes user content before embedding it in the HTML body. Reads `GMAIL_USER` and `GMAIL_APP_PASSWORD` from `process.env`, hands the request to `nodemailer.createTransport({ service: "gmail", ... })`, awaits `transporter.sendMail({...})`, returns the provider message ID on success or a structured error on failure.
+- `src/notesExport.js` — `emailNotes()` rewritten as an async function. Takes `{ content, courseTitle, lang, to }`, POSTs JSON to `/api/send-notes`, throws on non-2xx so callers can render the error.
+- `src/CourseNotes.jsx` — new `emailTo` state auto-filled from the signed-in user's email (still editable, for sending to a colleague / personal account). New `emailState` machine: `idle → sending → sent → error`, with a color-coded feedback banner above the action row. Pending autosave is `flush()`ed before the send so the email matches what's persisted.
+
+**Why Gmail SMTP and not Resend / SendGrid / Mailgun.** The transactional email providers all require a verified sending domain (DNS records) before they'll deliver to arbitrary recipients — without verification they restrict the `to:` field to the account owner's email, which defeats the purpose for a multi-user app. Domain verification takes ~20 minutes and depends on DNS propagation. Gmail SMTP with an App Password:
+
+- Needs no DNS setup. 2-Step Verification + a generated 16-character App Password is the entire credential setup (~3 minutes).
+- Free, 500 sends/day on a personal account (2000/day on Google Workspace). Plenty for workshop scale.
+- The App Password is SMTP-scoped — it cannot log into the Google account UI, cannot read mail, can be revoked individually without changing the main account password.
+- Trade-off accepted: all sends carry the personal Gmail address as the `From:`. For a workshop-branded site that's fine; if a future deployment needs `noreply@<custom-domain>`, the `transporter.sendMail({...})` call is the only line that changes — swap to Resend's REST API and add a `RESEND_API_KEY` env var.
+
+**Security boundary.** The credential never touches the browser bundle:
+
+- `GMAIL_USER` and `GMAIL_APP_PASSWORD` are set on Vercel under Environment Variables (with the "Sensitive" flag on the password — even the dashboard won't redisplay it). They're injected into `process.env` at function runtime only, never exposed to the React build.
+- The recipient address is supplied by the client and *trusted*. Earlier the design contemplated a Supabase-token-verified recipient ("never trust the client to specify the recipient — that's an open relay"); that protection was dropped because (a) the UX requirement is "let the user type any email", (b) the realistic attacker is a logged-in user who can already use the form by hand, and (c) Gmail's 500/day cap and per-IP rate limits cap the blast radius. If sending volume or abuse risk grows, the right escalation is rate-limiting per session/IP at the function level, not server-side recipient enforcement.
+
+**Tested deliverability.** Gmail → Gmail goes straight to the inbox. Gmail → external providers (Outlook, ProtonMail) sometimes lands in spam on the first email per recipient, especially for never-before-seen pairs; subsequent emails after a single "Not spam" mark deliver normally. Acceptable for workshop use; would not be acceptable for cold outreach.
+
+**Files touched.**
+- `api/send-notes.js` (new)
+- `src/notesExport.js` (rewritten `emailNotes`)
+- `src/CourseNotes.jsx` (recipient field, send-state machine, two-row action layout)
+- `package.json` / `package-lock.json` (added `nodemailer`)
+
+**Verification (additional checks).**
+16. With `GMAIL_USER` + `GMAIL_APP_PASSWORD` set on Vercel, sign in → open notes drawer → email field is auto-filled with the account email → type a note → click Send → "Sent to your inbox" banner appears within ~2s → email actually arrives.
+17. Edit the recipient field to a different address → Send → email arrives at the new address.
+18. Disable JS-side validation, send `{to: "not-an-email"}` directly → endpoint returns 400 with `"Invalid recipient email"`.
+19. Unset `GMAIL_APP_PASSWORD` in env → Send → endpoint returns 500 `"Gmail credentials not configured on server"`, banner shows the message in the user's language.
